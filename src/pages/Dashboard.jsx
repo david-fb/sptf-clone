@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import spotifyApi,{ setAuthToken } from '../controllers/SpotifyApi';
 import Nav from "../components/Nav";
+import Search from "../components/Search";
 
 const Dashboard = () => {
   const [playlists, setPlaylists] = useState([]);
@@ -11,8 +12,13 @@ const Dashboard = () => {
       setAuthToken(token);
 
       spotifyApi.get("/me/playlists")
-        .then((response) => setPlaylists(response.data.items))
+        .then((response) => {
+          console.log("respuesta,", response.data.items)
+              
+          setPlaylists(response.data.items)
+        })
         .catch((err) => console.error(err));
+
     }
   }, []);
 
@@ -20,6 +26,7 @@ const Dashboard = () => {
     <>
       <Nav />
       <div>
+        <Search></Search>
         <h1>Mis Playlists</h1>
         <ul>
           {playlists.map((playlist) => (

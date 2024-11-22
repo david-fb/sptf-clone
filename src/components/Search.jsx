@@ -1,7 +1,32 @@
 import { useState } from "react";
+import spotifyApi from '../controllers/SpotifyApi';
+import useStore from "../config/store.jsx"
 
-const Search = ({ onSearch }) => {
+const Search = () => {
   const [query, setQuery] = useState("");
+  const setPlayList = useStore((state) => state.setPlayList);
+
+
+  const onSearch = (query) => {
+    spotifyApi
+      .get("/search", {
+        params: {
+          q: query,
+          type: "track,artist,album", 
+          limit: 10, 
+        },
+      })
+      .then((response) => {
+        console.log("Respuesta:", response.data);
+        //Canciones 
+        const tracks = response.data.tracks?.items || [];
+        console.log("Resultados:", tracks);
+        setPlayList(tracks);
+      })
+      .catch((err) => console.error("Error al buscar:", err));
+  };
+  
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
