@@ -3,6 +3,7 @@ import spotifyApi from '../controllers/SpotifyApi';
 import useStore from "../config/store.jsx"
 import SearchIcon from '../assets/icons/SearchIcon';
 import ExploreIcon from "../assets/icons/ExploreIcon";
+import ClearIcon from "../assets/icons/ClearIcon";
 
 const Search = () => {
   const [query, setQuery] = useState("");
@@ -54,10 +55,25 @@ const Search = () => {
         onChange={(e) => setQuery(e.target.value)}
         className="flex-1 bg-transparent text-white placeholder-neutral outline-none px-2 cursor-pointer group-focus-within:cursor-text"
       />
-      <div className="border-l pl-2 h-6">
-        <button className="h-fit cursor-pointer transition-all hover:scale-105 hover:text-white">
-          <ExploreIcon />
-        </button>
+      
+      <div className={`border-l pl-2 h-6 ${query.length ? 'border-transparent' : '' }`}>
+        {query.length ? (
+            <button
+              onClick={() => setQuery("")}
+              className="h-fit cursor-pointer transition-all hover:scale-105 hover:text-white"
+            >
+              <ClearIcon />
+            </button>
+        )
+        : 
+        (
+            <button
+              onClick={handleSubmit}
+              className="h-fit cursor-pointer transition-all hover:scale-105 hover:text-white"
+            >
+              <ExploreIcon />
+            </button>
+        )}
       </div>
     </form>
   );
