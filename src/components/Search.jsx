@@ -1,6 +1,8 @@
 import { useState } from "react";
 import spotifyApi from '../controllers/SpotifyApi';
 import useStore from "../config/store.jsx"
+import SearchIcon from '../assets/icons/SearchIcon';
+import ExploreIcon from "../assets/icons/ExploreIcon";
 
 const Search = () => {
   const [query, setQuery] = useState("");
@@ -36,21 +38,21 @@ const Search = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex items-center bg-gray-800 rounded-full px-4 py-2 w-full max-w-lg mx-auto shadow-md"
+      className="flex items-center bg-tertiary-dark rounded-full px-4 py-2 w-full h-full max-w-lg mx-auto shadow-md focus-within:ring-2 focus-within:ring-white"
     >
+      <SearchIcon />
       <input
         type="text"
-        placeholder="Buscar canción, artista o álbum..."
+        placeholder="¿Qué quieres reproducir?"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         className="flex-1 bg-transparent text-white placeholder-gray-400 outline-none px-2"
       />
-      <button
-        type="submit"
-        className="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition-colors duration-200"
-      >
-        Buscar
-      </button>
+      <div className="border-l pl-2">
+        <button className="h-fit">
+          <ExploreIcon />
+        </button>
+      </div>
     </form>
   );
 };
