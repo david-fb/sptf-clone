@@ -12,6 +12,10 @@ const SpotifyIcon = ({ width = 24, height = 24 }) => (
       transform="translate(-0.95,0)"
     ></path>
   </svg>
+
+
+
+
 );
 
 export default SpotifyIcon;

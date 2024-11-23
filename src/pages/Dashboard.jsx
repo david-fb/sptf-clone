@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import spotifyApi,{ setAuthToken } from '../controllers/SpotifyApi';
 import Nav from "../components/Nav";
 import Search from "../components/Search";
+import SpotifyPlayer from "../components/SpotifyPlayer";
 
 const Dashboard = () => {
   const [playlists, setPlaylists] = useState([]);
@@ -34,6 +35,7 @@ const Dashboard = () => {
           ))}
         </ul>
       </div>
+      <SpotifyPlayer></SpotifyPlayer>
     </>
   );
 }
