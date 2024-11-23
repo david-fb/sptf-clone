@@ -25,9 +25,8 @@ const Dashboard = () => {
 
   return (
     <>
-      <Nav />
+      <Nav/>
       <div>
-        <Search></Search>
         <h1>Mis Playlists</h1>
         <ul>
           {playlists.map((playlist) => (

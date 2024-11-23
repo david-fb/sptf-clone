@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import ReactPlayer from "react-player";
 import PlayIcon from "../assets/icons/PlayIcon";
 import PauseIcon from "../assets/icons/PauseIcon";
-import {RigthControlIcon,LeftControlIcon} from "../assets/icons/ControlIcon";
+import { RigthControlIcon, LeftControlIcon } from "../assets/icons/ControlIcon";
 
 const SpotifyPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -15,34 +15,30 @@ const SpotifyPlayer = () => {
     setVolume(e.target.value / 100); // ReactPlayer usa un rango de 0 a 1
   };
 
-  //Manejar seguiente cancion
-  const nextTrack = (e) =>{
-    console.log("siguinete")
+  // Manejar siguiente canción
+  const nextTrack = () => {
+    console.log("Siguiente canción");
+  };
 
-  }
-  //Anterior  cancion
-
-  const backTrack = (e) => {
-    console.log("anterior")
-
-
-  }
-
+  // Manejar canción anterior
+  const backTrack = () => {
+    console.log("Canción anterior");
+  };
 
   // Manejar el progreso de la canción
   const handleProgress = (state) => {
-    setProgress(state.played * 100); // Convertir a porcentaje
+    setProgress(state.played * 100); 
   };
 
   // Cambiar el progreso de la canción manualmente
   const handleSeek = (e) => {
-    const seekTo = parseFloat(e.target.value) / 100; // Convertir a rango 0-1
+    const seekTo = parseFloat(e.target.value) / 100; 
     playerRef.current.seekTo(seekTo);
     setProgress(seekTo * 100);
   };
 
   return (
-    <div className="fixed bottom-0 w-full flex items-center justify-between shadow-lg">
+    <div className="fixed bottom-0 w-full flex items-center justify-between shadow-lg text-white p-4">
       {/* Información de la canción */}
       <div className="flex items-center gap-4">
         <img
@@ -57,41 +53,40 @@ const SpotifyPlayer = () => {
       </div>
 
       {/* Controles */}
-      <div className="flex flex-col items-center space-y-1 w-1/2">
-       <div>
-       <button
-          onClick={() => backTrack()}
-          className=""
-          aria-label={isPlaying ? "Pause" : "Play"}
-        >
-        <LeftControlIcon/>
-        </button>
+      <div className="flex flex-col items-center justify-center space-y-3 w-1/2">
+        {/* Botones de control */}
+        <div className="flex items-center space-x-6">
+          <button
+            onClick={backTrack}
+            className="text-gray-500 hover:text-white transition"
+            aria-label="Anterior"
+          >
+            <LeftControlIcon />
+          </button>
 
-        <button
-          onClick={() => setIsPlaying(!isPlaying)}
-          className="bg-white p-2 rounded-full hover:bg-gray-200 hover:text-gray-800 transition"
-          aria-label={isPlaying ? "Pause" : "Play"}
-        >
+          <button
+            onClick={() => setIsPlaying(!isPlaying)}
+            className="bg-white p-2 rounded-full hover:bg-gray-200 hover:text-gray-800 transition"
+            aria-label={isPlaying ? "Pause" : "Play"}
+          >
+            {isPlaying ? <PauseIcon /> : <PlayIcon />}
+          </button>
 
-        {isPlaying ? <PauseIcon /> : <PlayIcon />}
-        </button>
-
-        <button
-          onClick={() => nextTrack() }
-          className=""
-          aria-label={isPlaying ? "Pause" : "Play"}
-        >
-          <RigthControlIcon/>
-
-        </button>
-
-       </div>
-     
-       {/* Barra de progreso */}
-      <div className="text-xs flex justify-between w-full text-gray-400"  >
-          <span>{(progress / 25).toFixed(2)}</span> {/* Ejemplo de tiempo dinámico */}
-          <span>4:04</span>
+          <button
+            onClick={nextTrack}
+            className="text-gray-500 hover:text-white transition"
+            aria-label="Siguiente"
+          >
+            <RigthControlIcon />
+          </button>
         </div>
+
+        {/* Barra de progreso */}
+        <div className="w-full flex flex-col items-center space-y-1">
+          <div className="text-xs flex justify-between w-full text-gray-400">
+            <span>{(progress / 25).toFixed(2)}</span> {/* Tiempo dinámico */}
+            <span>4:04</span>
+          </div>
           <input
             type="range"
             className="w-full cursor-pointer"
@@ -100,10 +95,8 @@ const SpotifyPlayer = () => {
             value={progress}
             onChange={handleSeek}
           />
+        </div>
       </div>
-        
-        
-     
 
       {/* Control de volumen */}
       <div className="flex items-center gap-4">

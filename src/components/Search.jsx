@@ -28,9 +28,34 @@ const Search = () => {
       .catch((err) => console.error("Error al buscar:", err));
   };
 
+
+  const onExplore = () => {
+      spotifyApi
+      .get("/browse/categories"
+        , {
+        params: {
+          limit: 10, 
+          locale: "es_CO",
+
+        },
+      })
+      .then((response) => {
+        console.log("Respuesta:", response.data);
+        const tracks = response.data.tracks?.items || [];
+        console.log("Resultados:", tracks);
+        setPlayList(tracks);
+      })
+      .catch((err) => console.error("Error al buscar:", err));
+    
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearch(query);
+    if(query){
+      onSearch(query);      
+    }else{
+      onExplore()
+    }
   };
 
   const handleIconClick = () => {
