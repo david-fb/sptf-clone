@@ -10,27 +10,22 @@ const SpotifyPlayer = () => {
   const [progress, setProgress] = useState(0);
   const playerRef = useRef(null);
 
-  // Manejar el cambio de volumen
   const changeVolume = (e) => {
-    setVolume(e.target.value / 100); // ReactPlayer usa un rango de 0 a 1
+    setVolume(e.target.value / 100); 
   };
 
-  // Manejar siguiente canción
   const nextTrack = () => {
     console.log("Siguiente canción");
   };
 
-  // Manejar canción anterior
   const backTrack = () => {
     console.log("Canción anterior");
   };
 
-  // Manejar el progreso de la canción
   const handleProgress = (state) => {
     setProgress(state.played * 100); 
   };
 
-  // Cambiar el progreso de la canción manualmente
   const handleSeek = (e) => {
     const seekTo = parseFloat(e.target.value) / 100; 
     playerRef.current.seekTo(seekTo);
@@ -121,7 +116,7 @@ const SpotifyPlayer = () => {
         volume={volume}
         width="0"
         height="0"
-        onProgress={handleProgress} // Manejar progreso
+        onProgress={handleProgress} 
       />
     </div>
   );
