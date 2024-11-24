@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import spotifyApi from '../controllers/SpotifyApi';
-import useStore from "../config/store.jsx"
+import useStore from "../config/store.jsx";
 import SearchIcon from '../assets/icons/SearchIcon';
 import ExploreIcon from "../assets/icons/ExploreIcon";
 import ClearIcon from "../assets/icons/ClearIcon";
@@ -15,47 +15,45 @@ const Search = () => {
       .get("/search", {
         params: {
           q: query,
-          type: "track,artist,album", 
-          limit: 10, 
+          type: "track,album", 
+          limit: 20, 
         },
       })
       .then((response) => {
         console.log("Respuesta:", response.data);
         const tracks = response.data.tracks?.items || [];
         console.log("Resultados:", tracks);
-        setPlaylist(tracks)
+        setPlaylist(tracks);
       })
       .catch((err) => console.error("Error al buscar:", err));
   };
 
-
   const onExplore = () => {
-      spotifyApi
-      .get("/browse/categories"
-        , {
+    spotifyApi
+      .get("/browse/categories", {
         params: {
           type: "categories",
           limit: 10, 
           locale: "es_CO",
-
         },
       })
       .then((response) => {
         console.log("Respuesta:", response.data);
-        const tracks = response.data.tracks?.items || [];
-        console.log("Resultados:", tracks);
-        setPlayList(tracks);
+        const categories = response.data.categories?.items || [];
+        console.log("Resultados:", categories);
+        //setPlaylist(categories); 
       })
       .catch((err) => console.error("Error al buscar:", err));
-    
-  }
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if(query){
-      onSearch(query);      
-    }else{
-      onExplore()
+  const handleChange = (e) => {
+    const newQuery = e.target.value;
+    setQuery(newQuery);
+    
+    if (newQuery) {
+      onSearch(newQuery);
+    } else {
+      onExplore();
     }
   };
 
@@ -66,8 +64,7 @@ const Search = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
+    <div
       className="group flex items-center cursor-pointer bg-tertiary-dark rounded-full px-4 py-2 w-full h-full max-w-lg mx-auto shadow-md focus-within:ring-2 focus-within:ring-white text-neutral transition-colors hover:bg-quaternary-dark border-[1px] border-transparent hover:border-[1px] hover:border-neutral"
     >
       <button onClick={handleIconClick} className="transition-colors group-hover:text-white group-focus-within:text-white group-focus-within:cursor-default">
@@ -78,7 +75,7 @@ const Search = () => {
         type="text"
         placeholder="¿Qué quieres reproducir?"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={handleChange}
         className="flex-1 bg-transparent text-white placeholder-neutral outline-none px-2 cursor-pointer group-focus-within:cursor-text"
       />
       
@@ -94,14 +91,14 @@ const Search = () => {
         : 
         (
             <button
-              onClick={handleSubmit}
+              onClick={onExplore}
               className="h-fit cursor-pointer transition-all hover:scale-105 hover:text-white"
             >
               <ExploreIcon />
             </button>
         )}
       </div>
-    </form>
+    </div>
   );
 };
 

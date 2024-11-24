@@ -10,7 +10,7 @@ const Nav = () => {
                 <SpotifyIcon width={36} height={36} />
             </Link>
             <div className='flex gap-2 items-center h-full'>
-                <Link className='bg-tertiary-dark flex items-center justify-center h-full aspect-square rounded-full text-neutral hover:scale-105' to="/"><HomeIcon/></Link>
+                <Link className='bg-tertiary-dark flex items-center justify-center h-full aspect-square rounded-full text-neutral hover:scale-105' to="/dashboard"><HomeIcon/></Link>
                 <Search />
             </div>
             <div className='w-6 h-6'>
