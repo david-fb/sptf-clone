@@ -7,7 +7,7 @@ import ClearIcon from "../assets/icons/ClearIcon";
 
 const Search = () => {
   const [query, setQuery] = useState("");
-  const setPlayList = useStore((state) => state.setPlayList);
+  const setPlaylist = useStore((state) => state.setPlaylist);
   const inputRef = useRef(null);
 
   const onSearch = (query) => {
@@ -23,7 +23,7 @@ const Search = () => {
         console.log("Respuesta:", response.data);
         const tracks = response.data.tracks?.items || [];
         console.log("Resultados:", tracks);
-        setPlayList(tracks);
+        setPlaylist(tracks)
       })
       .catch((err) => console.error("Error al buscar:", err));
   };
@@ -34,6 +34,7 @@ const Search = () => {
       .get("/browse/categories"
         , {
         params: {
+          type: "categories",
           limit: 10, 
           locale: "es_CO",
 

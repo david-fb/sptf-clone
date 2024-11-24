@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 
 const useStore = create((set) => ({
-  playList: [], 
-  setPlayList: (newPlayList) => set({ playList: newPlayList }), // Actualizar el estado
+  playlist: [], 
+  setPlaylist: (newPlaylist) => set({ playlist: newPlaylist }), 
 }));
 
 export default useStore;
